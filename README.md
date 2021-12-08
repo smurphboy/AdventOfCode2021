@@ -1,0 +1,3 @@
+# Advent Of Code 2021
+
+My solutions for 2021 Advent of Code. All written in Python and probably using pandas when I run out of talent around data handling...
