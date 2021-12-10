@@ -8,13 +8,26 @@ with open('input/daythreeinput.txt', 'rt') as file:
     for index, line in enumerate (file.readlines()):
         cols = [char for char in line.split()[0]]
         result.loc[index] = cols
-    mostcommon = result.mode()
-    gammalist = []
-    epsilonlist = []
+    ohtwo = result
+    seeohtwo = result
     for heading in headers:
-        val = mostcommon.iloc[0][heading]
-        gammalist.append(int(val))
-        gamma = int("".join(str(i) for i in gammalist),2)
-        epsilonlist.append(1-int(val))
-        epsilon= int("".join(str(i) for i in epsilonlist),2)
-    print (gamma * epsilon)
+        ohtwo = ohtwo[ohtwo[heading] == ohtwo.mode().iloc[0][heading]]
+        if seeohtwo.shape[0] > 1:
+            val = seeohtwo.mode().iloc[0][heading]
+            seeohtwo = seeohtwo[seeohtwo[heading] == str(1-int(val))]
+    ohtwolist = []
+    seeohtwolist = []
+    for heading in headers:
+        ohtwolist.append(int(ohtwo.iloc[0][heading]))
+        seeohtwolist.append(int(seeohtwo.iloc[0][heading]))
+    ohtworesult = int("".join(str(i) for i in ohtwolist),2)
+    seeohtworesult = int("".join(str(i) for i in seeohtwolist),2)
+    print (ohtwo)
+    print (ohtworesult)
+    print (seeohtwo)
+    print (seeohtworesult)
+    print (ohtworesult * seeohtworesult)
+
+
+#    lsr = (ohtwo * seeohtwo)
+#    print (lsr)
