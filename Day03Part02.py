@@ -10,11 +10,20 @@ with open('input/daythreeinput.txt', 'rt') as file:
         result.loc[index] = cols
     ohtwo = result
     seeohtwo = result
-    for heading in headers:
-        ohtwo = ohtwo[ohtwo[heading] == ohtwo.mode().iloc[0][heading]]
+    for heading in headers: # for each column we find the counts, filter and repeat
+        ohtwoones = ohtwo[heading].value_counts().to_dict()['1']
+        ohtwoohes = ohtwo[heading].value_counts().to_dict()['0']
+        if ohtwoones >= ohtwoohes:
+            ohtwo = ohtwo[ohtwo[heading] == '1']
+        else:
+            ohtwo = ohtwo[ohtwo[heading] == '0']
         if seeohtwo.shape[0] > 1:
-            val = seeohtwo.mode().iloc[0][heading]
-            seeohtwo = seeohtwo[seeohtwo[heading] == str(1-int(val))]
+            seetwoones = seeohtwo[heading].value_counts().to_dict()['1']
+            seetwoohes = seeohtwo[heading].value_counts().to_dict()['0']
+            if seetwoohes <= seetwoones:
+                seeohtwo = seeohtwo[seeohtwo[heading] == '0']
+            else:
+                seeohtwo = seeohtwo[seeohtwo[heading] == '1']
     ohtwolist = []
     seeohtwolist = []
     for heading in headers:
@@ -22,12 +31,4 @@ with open('input/daythreeinput.txt', 'rt') as file:
         seeohtwolist.append(int(seeohtwo.iloc[0][heading]))
     ohtworesult = int("".join(str(i) for i in ohtwolist),2)
     seeohtworesult = int("".join(str(i) for i in seeohtwolist),2)
-    print (ohtwo)
-    print (ohtworesult)
-    print (seeohtwo)
-    print (seeohtworesult)
     print (ohtworesult * seeohtworesult)
-
-
-#    lsr = (ohtwo * seeohtwo)
-#    print (lsr)
