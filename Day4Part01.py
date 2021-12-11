@@ -11,14 +11,16 @@ def main():
                 bingonumbers = line
             elif idx == 1:
                 pass
+            elif row == 5:
+                pass
             else:
                 cardlines.update({str(card)+'r'+str(row) : line.split()}) # create row
                 for cell in range(5):
                     print (idx, card, row, cell)
                     if row == 0:
-                        cardlines.update({str(card)+'c'+str(row) : line.split()[cell]})
+                        cardlines.update({str(card)+'c'+str(cell) : [line.split()[cell]]})
                     else:
-                        cardlines[str(card)+'c'+str(row)].append(line.split()[cell])
+                        cardlines[str(card)+'c'+str(cell)].append(line.split()[cell])
 #        print (bingonumbers)
 #        print (len(lines))
         print(cardlines)
