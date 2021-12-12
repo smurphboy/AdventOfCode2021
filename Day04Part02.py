@@ -27,25 +27,16 @@ def main():
 
         numbers = bingonumbers.split(',')
         for hand in range(len(numbers)):
-                handnumbers = set(numbers[0:hand])
-                for key in cardlines:
+            handnumbers = set(numbers[0:hand])
+            if len(cardlines) > 1:
+                for key in list(cardlines):
                         if handnumbers.issuperset(cardlines[key]):
-                            winningcard = key[:2]
-                            winninghand = numbers[0:hand]
-#        we have the winning line, now we score the card
-        score = 0
-        for key in cardlines:
-            if key[0:2] == winningcard:
-                if key[2] == 'r': # we don't want to double count rows and columns
-                    for num in cardlines[key]:
-                        if num not in winninghand:
-                            score += int(num)
-        finalscore = (score * int(winninghand[-1]))
-        print (finalscore)
-
-
-
-        
+                            for i in range(5):
+                                del cardlines[key[:2]+'r'+ str(i)]
+                                del cardlines[key[:2]+'c'+ str(i)]
+                                print(key[:2]+'r'+ str(i))
+                                print(key[:2]+'c'+ str(i))
+        print(cardlines)     
 
 if __name__ == '__main__':
     main()
